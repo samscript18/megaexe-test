@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "npx  nodemon",
     "migrate": "prisma migrate deploy",
-    "generate": "prisma generate"
+    "postinstall": "npm run migrate"
   },
   "author": "",
   "license": "ISC",
