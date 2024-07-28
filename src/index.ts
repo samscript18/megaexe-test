@@ -24,8 +24,8 @@ app.use(express.json({ limit: "50mb" }));
 app.use(helmet());
 app.use(cors());
 
-app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-app.use("/api", rootRouter);
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use("/api/v1", rootRouter);
 
 export const prismaClient = new PrismaClient();
 
