@@ -4,8 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx nodemon",
-    "build": "npx tsc"
+    "start": "node ./build/index.js",
+    "dev": "npx nodemon",
+    "build": "tsc -p .",
+    "prod:build": "npm install && tsc -p ."
   },
   "author": "",
   "license": "ISC",
