@@ -1,0 +1,305 @@
+openapi: 3.0.3
+info:
+  title: Megaexe Test API
+  version: "1.0"
+servers:
+  - url: https://megaexe-test.onrender.com/api
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: Signup
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupRequest"
+            example:
+              name: test
+              email: testing@gmail.com
+              password: test123
+      responses:
+        "200":
+          description: Successful signup
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+            example:
+              email: sam@gmail.com
+              password: sam123
+      responses:
+        "200":
+          description: Successful login
+  /post:
+    post:
+      tags:
+        - Post
+      summary: Create post
+      operationId: createPost
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePostRequest"
+            example:
+              image: qkjwpdiqjd[oqkd[oqdjkbfo[ewfk[oa
+              content: jlkfql;dj[oqdk[qodqad
+              category: qlkjhrfpiqof]ip
+      responses:
+        "200":
+          description: Post created successfully
+      security:
+        - bearerAuth: []
+    get:
+      tags:
+        - Post
+      summary: Get posts
+      operationId: getPosts
+      responses:
+        "200":
+          description: Successfully retrieved posts
+      security:
+        - bearerAuth: []
+  /post/filter/{category}:
+    get:
+      tags:
+        - Post
+      summary: Filter posts by category
+      operationId: filterPostsByCategory
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully filtered posts
+      security:
+        - bearerAuth: []
+  /post/sort/{criteria}:
+    get:
+      tags:
+        - Post
+      summary: Sort posts by criteria
+      operationId: sortPostsByCriteria
+      parameters:
+        - name: criteria
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully sorted posts
+      security:
+        - bearerAuth: []
+  /post/{id}/comments:
+    post:
+      tags:
+        - Post
+      summary: Add comment
+      operationId: addComment
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddCommentRequest"
+            example:
+              content: wow this is very nice
+      responses:
+        "200":
+          description: Comment added successfully
+      security:
+        - bearerAuth: []
+    get:
+      tags:
+        - Post
+      summary: Get comments
+      operationId: getComments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved comments
+      security:
+        - bearerAuth: []
+  /post/{id}:
+    patch:
+      tags:
+        - Post
+      summary: Edit post
+      operationId: editPost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditPostRequest"
+            example:
+              content: Nice content
+      responses:
+        "200":
+          description: Post edited successfully
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - Post
+      summary: Delete post
+      operationId: deletePost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Post deleted successfully
+      security:
+        - bearerAuth: []
+  /post/{id}/upvote:
+    post:
+      tags:
+        - Post
+      summary: Upvote post
+      operationId: upvotePost
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Post upvoted successfully
+      security:
+        - bearerAuth: []
+  /post/{id}/downvote:
+    post:
+      tags:
+        - Post
+      summary: Downvote post
+      operationId: downvotePost
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Post downvoted successfully
+      security:
+        - bearerAuth: []
+components:
+  schemas:
+    SignupRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    CreatePostRequest:
+      type: object
+      required:
+        - image
+        - content
+        - category
+      properties:
+        image:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+    AddCommentRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+    EditPostRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Auth
+  - name: Post
