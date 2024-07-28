@@ -25,6 +25,7 @@ export const errorHandler = (method: Function) => {
             ErrorCode.INTERNAL_SERVER_ERR0R,
             error
           );
+          console.log(error);
         }
       }
       next(exception);

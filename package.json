@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
-    "dev": "npx  nodemon"
+    "dev": "npx  nodemon",
+    "migrate": "prisma migrate deploy",
+    "generate": "prisma generate"
   },
   "author": "",
   "license": "ISC",
