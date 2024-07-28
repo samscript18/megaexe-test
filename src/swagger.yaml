@@ -3,7 +3,7 @@ info:
   title: Megaexe Test API
   version: "1.0"
 servers:
-  - url: https://megaexe-test.onrender.com/api
+  - url: https://megaexe-test.onrender.com
 paths:
   /auth/signup:
     post:
