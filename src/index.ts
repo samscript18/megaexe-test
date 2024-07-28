@@ -9,7 +9,7 @@ import { rootRouter } from "./routes";
 import { PrismaClient } from "@prisma/client";
 import { errorMiddleware } from "./middlewares/error";
 
-const swaggerDocument = YAML.load("./swagger.yaml");
+// const swaggerDocument = YAML.load("./swagger.yaml");
 
 const app: Express = express();
 
@@ -24,7 +24,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(helmet());
 app.use(cors());
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+// app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use("/api", rootRouter);
 
 export const prismaClient = new PrismaClient();
