@@ -1,20 +1,22 @@
 services:
   server:
+    image: megaexe-app:1.0
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     environment:
       NODE_ENV: production
     ports:
       - 3001:3001
     container_name: megaexe
     depends_on:
-      db:
+      megaexedb:
         condition: service_healthy
-  db:
+  megaexedb:
     image: postgres
     restart: always
-    user: postgres
     secrets:
       - db-password
     volumes:
@@ -22,11 +24,12 @@ services:
     environment:
       - POSTGRES_DB=megaexedb
       - POSTGRES_USER=samscript
+      - PGUSER=samscript
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    expose:
-      - 5432
+    ports:
+      - 5432:5432
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: ["CMD", "pg_isready", "-h", "megaexedb"]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -6,7 +6,7 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "dev": "npx  nodemon",
-    "migrate": "prisma migrate deploy"
+    "migrate:dev": "prisma migrate deploy && npx nodemon"
   },
   "author": "",
   "license": "ISC",

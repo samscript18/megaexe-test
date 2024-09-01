@@ -31,9 +31,6 @@ export const prismaClient = new PrismaClient();
 
 app.use(errorMiddleware);
 app.get("/", (req, res) => res.redirect("/docs/"));
-// app.all("*", (req, res, next) => {
-//   res.status(404).json({ error: "route/method does not exist" });
-// });
 
 const port = secrets.port;
 app.listen(port, () => {
